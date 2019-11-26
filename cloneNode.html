@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cloneNode</title>
+    <style>
+     #move1{
+         width: 300px;
+         height: 300px;
+         border: 1px solid #efefef;
+     }
+    </style>
+</head>
+<body>
+    <h3>
+        js中cloneNode()该方法将复制并返回调用它的节点的副本。如果传递给它的参数是 true，它还将递归复制当前节点的所有子孙节点。否则，它只复制当前节点。
+        jquery中有clone()方法，与之类似；true/flase
+    </h3>
+    <header id="header">
+        <p>这里是原始元素数据</p>
+        <nav>
+            <span>金</span>
+            <span>木</span>
+            <span>水</span>
+            <span>火</span>
+            <span>土</span>
+        </nav>
+    </header>
+    <p><button onclick="copy()">复制</button></p>
+    <article id="copy1"></article>
+    <p id="imgMove">图片移动：</p>
+    <img id="img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574676890876&di=b278460be4fae528cf62386172a654b2&imgtype=0&src=http%3A%2F%2Ftx.haiqq.com%2Fuploads%2Fallimg%2F170504%2F1034203532-3.jpg" draggable="true" ondragstart="dragEvent(event)"/> 
+    <article id="move1" ondragend="end(event)" ondrop="drop(event)" ondragover="allowDrop(event)"></article>
+</body>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+ function copy() {
+    alert("你点击了复制");
+    var node=document.getElementById("header").cloneNode(true);
+    document.getElementById("copy1").appendChild(node);
+ }
+ function allowDrop(e) {
+   e.preventDefault();
+ }
+ function dragEvent(e) {
+    e.dataTransfer.setData("TextId",e.target.id);
+ }
+ function drop(e) {
+   e.preventDefault();
+   var data = e.dataTransfer.getData("TextId");
+   var item = document.getElementById(data);
+   console.log(e.target);
+   e.target.appendChild(item);
+ }
+ function end(e) {
+    e.preventDefault();
+    $("#imgMove").text("图片已经被移走了！");
+ }
+</script>
+</html>

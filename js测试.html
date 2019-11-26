@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ES6学习</title>
+</head>
+<body>
+    <h1><a href="">js测试</a></h1>
+    <button onclick="aa()">数组内取随机数</button>
+    <button onclick="bb(1,100)">1-100内取随机数</button>
+</body>
+<script>
+// 数组重去
+var mySet = new Set([1, 2, 3, 4, 4]);
+console.log([...mySet]); // [1, 2, 3, 4]
+// 并集
+var a = new Set([1, 2, 3, 6]);
+var b = new Set([4, 3, 2]);
+var union = new Set([...a, ...b]); // {1, 2, 3, 6, 4}
+console.log([...union]);
+// 交集
+var c = new Set([1, 2, 3]);
+var d = new Set([4, 3, 2]);
+var intersect = new Set([...c].filter(x => d.has(x))); // {2, 3}
+console.log([...intersect]);
+// 差集
+var difference = new Set([...c].filter(x => !d.has(x))); // {1}
+console.log([...difference]);
+</script>
+<script>
+// 数组扁平化
+Object.defineProperty(Array.prototype, 'flat', {
+    value: function(depth = 1) {
+      return this.reduce(function (flat, toFlatten) {
+        return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+      }, []);
+    }
+});
+console.log(
+  [1, [2], [3, [[4,5]]]].flat(3)
+);
+</script>
+<script>
+  // 数组内取随机数
+function aa() {
+   var items = [12, 548, 23, 2, 5478, 56, 8852,  99, 2145, 119];
+   var zzNum = Math.floor(Math.random() * items.length);
+   var  randomItem = items[zzNum];
+   console.log(zzNum,randomItem);
+}
+// 获取指定范围内的随机数
+function bb(a,b) {
+  var x = Math.floor(Math.random() * (a - b + 1)) + b;
+  console.log(x);
+}
+
+</script>
+<>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ES6学习</title>
+</head>
+<body>
+    <h1>E6测试-Set 对象作用</h1>
+</body>
+<script>
+// 数组去重
+var mySet = new Set([1, 2, 3, 4, 4]);
+console.log([...mySet]); // [1, 2, 3, 4]
+// 并集
+var a = new Set([1, 2, 3, 6]);
+var b = new Set([4, 3, 2]);
+var union = new Set([...a, ...b]); // {1, 2, 3, 6, 4}
+console.log([...union]);
+// 交集
+var c = new Set([1, 2, 3]);
+var d = new Set([4, 3, 2]);
+var intersect = new Set([...c].filter(x => d.has(x))); // {2, 3}
+console.log([...intersect]);
+// 差集
+var difference = new Set([...c].filter(x => !d.has(x))); // {1}
+console.log([...difference]);
+</script>
+<script>
+Object.defineProperty(Array.prototype, 'flat', {
+    value: function(depth = 1) {
+      return this.reduce(function (flat, toFlatten) {
+        return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+      }, []);
+    }
+});
+
+console.log(
+  [1, [2], [3, [[4,5]]]].flat(3)
+);
+</script>
+<script>
+var user = "德玛西亚";
+function changeUser(aa){
+    console.log(aa);
+    var user = "诺克萨斯"
+}
+changeUser(user); // 德玛西亚
+</script>
+<script>
+var data = [
+{
+"taskCode":"D0020201909101106232",
+"actionDate":"2019-09-11",
+"branchName":"南京银行股份有限公司南京分行营业部",
+"status":"待出库",
+"type":"网点取款",
+"amount":100000,
+"df":[{"valuta":"100元","value":100000},{"valuta":"50元","value":0},{"valuta":"20元","value":0}],
+"ndf":[{"valuta":"100元","value":0},{"valuta":"50元","value":0},{"valuta":"20元","value":0},{"valuta":"5元","value":0},{"valuta":"10元","value":0}]},
+{
+  "taskCode":"D0020201909101106403",
+  "actionDate":"2019-09-11",
+  "branchName":"南京银行股份有限公司南京分行营业部",
+  "status":"待出库",
+  "type":"网点取款",
+  "amount":200000,
+  "df":[{"valuta":"100元","value":200000},{"valuta":"50元","value":0},{"valuta":"20元","value":0}],
+  "ndf":[{"valuta":"100元","value":0},{"valuta":"50元","value":0},{"valuta":"20元","value":0},{"valuta":"5元","value":0},{"valuta":"10元","value":0}]},
+{
+  "taskCode":"D0020201909101350116",
+  "actionDate":"2019-09-11",
+  "branchName":"南京银行股份有限公司南京分行营业部",
+  "status":"待出库",
+  "type":"网点取款",
+  "amount":200000,
+  "df":[{"valuta":"100元","value":100000},{"valuta":"50元","value":100000},{"valuta":"20元","value":0}],
+  "ndf":[{"valuta":"100元","value":0},{"valuta":"50元","value":0},{"valuta":"20元","value":0},{"valuta":"5元","value":0},{"valuta":"10元","value":0}]},
+];
+const anotherArray = Object.values(data.reduce((acc, {amount,actionDate,branchName,status,type,df,ndf}) =>
+      (
+        (acc[branchName] = acc[branchName] || {actionDate,branchName,status,type,amount:[],df:[],ndf:[]})["df"].push(...df),
+        (acc[branchName] = acc[branchName] || {actionDate,branchName,status,type,amount:[],df:[],ndf:[]})["ndf"].push(...ndf),
+        (acc[branchName] = acc[branchName] || {actionDate,branchName,status,type,amount:[],df:[],ndf:[]})["amount"].push(amount),  
+      acc), {}));
+let  dfArray = Object.values(anotherArray[0].df.reduce((acc, {valuta,value}) =>
+      (
+        (acc[valuta] = acc[valuta] || {valuta,value:[]})["value"].push(value),
+      acc), {}));
+anotherArray[0].df = dfArray.map(item => {
+    let dfOneArray = {};
+    dfOneArray.valuta = item.valuta;
+    dfOneArray.value = item.value.reduce((prev,cur) => prev + cur);
+    return dfOneArray;
+});         
+let  ndfArray = Object.values(anotherArray[0].ndf.reduce((acc, {valuta,value}) =>
+      (
+        (acc[valuta] = acc[valuta] || {valuta,value:[]})["value"].push(value),
+      acc), {}));
+anotherArray[0].ndf = ndfArray.map(item => {
+    let ndfOneArray = {};
+    ndfOneArray.valuta = item.valuta;
+    ndfOneArray.value = item.value.reduce((prev,cur) => prev + cur);
+    return ndfOneArray;
+});
+
+console.log(anotherArray)
+</script>
+</html>
