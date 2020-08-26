@@ -1,0 +1,40 @@
+body {
+  background-color: #183D6E;
+}
+
+#div1 {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  margin: 20px auto 0;
+  background: url(image/qiu.png) no-repeat center;
+  background-size: cover;
+}
+
+#div1 a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: Microsoft YaHei;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 3px 6px
+}
+
+#div1 a:hover {
+  border: 1px solid #eee;
+  background: #000
+}
+
+#div1 .blue {
+  color: blue
+}
+
+#div1 .red {
+  color: red
+}
+
+#div1 .yellow {
+  color: #ff0
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>createdocumentfragment</title>
+</head>
+<body>
+    <P>createdocumentfragment()方法创建了一虚拟的节点对象，节点对象包含所有属性和方法。
+        当你想提取文档的一部分，改变，增加，或删除某些内容及插入到文档末尾可以使用createDocumentFragment() 方法
+        你也可以使用文档的文档对象来执行这些变化，但要防止文件结构被破坏，createDocumentFragment() 方法可以更安全改变文档的结构及节点。
+    </P>
+    <div id="div1">
+        <p>通过虚拟节点，在div1里面添加一些的数字</p>
+    </div>
+    <button onclick="add()">添加数字</button>
+</body>
+<script src="jschajian/jquery2.1.1.js"></script>
+<script>
+  function add() {
+      var d = document.createDocumentFragment();
+      for (let i=0; i<5; i++) {
+          var aa = `<p>第${i}个span</p>`;
+          d.append(aa);
+      }
+      $("#div1").append(d);
+  }
+</script>
+</html>
